@@ -63,6 +63,7 @@ app.post("/api/rsvp", (req, res) => {
 });
 
 app.post('/api/clear', (req, res) => {
+  // hotpot-restauraunt.herokuapp.com/api/clear
   rsvp.length = 0;
   res.json(true);
   console.log("List Cleared");
