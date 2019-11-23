@@ -15,7 +15,7 @@ app.use(express.json());
 
 // DATA
 // =============================================================
-var rsvp = [
+const rsvp = [
   // {
   //   name: "Frodo Swaggins",
   //   email: "thebaggiest@ringlife.com",
@@ -62,6 +62,11 @@ app.post("/api/rsvp", (req, res) => {
     res.json(newRSVP);
 });
 
+app.post('/api/clear', (req, res) => {
+  rsvp.length = 0;
+  res.json(true);
+  console.log("List Cleared");
+});
 
 
 // Starts the server to begin listening
