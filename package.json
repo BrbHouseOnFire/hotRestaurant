@@ -1,0 +1,22 @@
+{
+  "name": "hotrestaurant",
+  "version": "1.0.0",
+  "description": "A Node / Express based web application for handling reservation requests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrbHouseOnFire/hotRestaurant.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrbHouseOnFire/hotRestaurant/issues"
+  },
+  "homepage": "https://github.com/BrbHouseOnFire/hotRestaurant#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

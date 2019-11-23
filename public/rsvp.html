@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HotPot</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Welcome to Hot Pot</h1>
+      <h3>Our soup base now comes extra spicy!</h3>
+      <hr>
+      <a href="/add"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>
+        Create a Reservation</button></a>
+      <a href="/"><button class="btn btn-danger btn-lg"><span
+            class="fa fa-eye"></span> Return Home</button></a>
+    </div>
+    <div class="row">
+
+        <div class="col-12">
+
+            <div class="card mb-4">
+            <div class="card-header">
+                <h3><strong>Currently Seating</strong></h3>
+            </div>
+            <div class="card-body" id = "rezzes">
+                <br>
+            </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3><strong>Waitlist</strong></h3>
+                </div>
+                <div class="card" id="waitlist">
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script type="text/javascript">
+
+    $.get("/api/rsvp").then(rsvp => {
+        let rsvpTablesDiv = '';
+        let waitTablesDiv = '';
+        // check for existance of rsvps
+        if (rsvp.length) {
+            rsvp.forEach((element, index) => {
+                // add users to "currently seating"
+                if (index < 5) {
+                    let customerDiv = `
+                            <div class="card-body">
+                                <h2 id="name">${element.name}</h2>
+                                <div id="stats">
+                                <h3><strong>Email:</strong> <span id="Email">${element.email}</span></h3>
+                                <h3><strong>Phone:</strong> <span id="Phone">${element.phone}</span></h3>
+                                <h3><strong>ID:</strong> <span id="ID">${index + 1}</span></h3>
+                                </div>
+                            </div>
+                        `;
+                    rsvpTablesDiv += customerDiv;
+                }
+                // add users to waitlist
+                if (index >= 5) {
+                    let customerDiv = `
+                            <div class="card-body">
+                                <h2 id="name">${element.name}</h2>
+                                <div id="stats">
+                                <h3><strong>Email:</strong> <span id="Email">${element.email}</span></h3>
+                                <h3><strong>Phone:</strong> <span id="Phone">${element.phone}</span></h3>
+                                <h3><strong>ID:</strong> <span id="ID">${index + 1}</span></h3>
+                                </div>
+                            </div>
+                        `;
+                    waitTablesDiv += customerDiv;
+                }
+
+            });
+            // write to page
+            $("#rezzes").html(rsvpTablesDiv);
+            if (rsvp.length < 5) {
+                $("#waitlist").html(`
+                            <div class="card-body">
+                                <h2 id="name">No Wait Time :)</h2>
+                            </div>
+                        `);
+            }
+            else {
+                $("#waitlist").html(waitTablesDiv);
+            }
+        }
+        else {
+            // no RSVPs
+            $("#rezzes").html(`
+                            <div class="card-body"><h2 id="name">No Current RSVPs</h2></div>`);
+            $("#waitlist").html(`
+                            <div class="card-body"><h2 id="name">No Wait Time :)</h2></div>`);
+        }
+
+
+    });
+
+  </script>
+</body>
+</html>
