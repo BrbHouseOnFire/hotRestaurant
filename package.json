@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/BrbHouseOnFire/hotRestaurant#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.19.2"
   }
 }
